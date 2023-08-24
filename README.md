@@ -88,13 +88,13 @@
 | (config)# interface g1/0                                        | Enter their interface config mode                        |
 | (config-if)# description Link to Somehost                       | Human readable link description                          |
 | (config-if)# ip address 10.23.42.5 255.255.0.0                  | Add IPv4 address to interface.                           |
-| (config-if)# mac address 1234.5678.90AB                         | Overwrite MAC address.                                   |
+| (config-if)# mac-address 1234.5678.90AB                         | Overwrite MAC address.                                   |
 | (config-if)# no mac address                                     | Remove MAC overwrite.                                    |
 | (config-if)# ipv6 address 2001:41d0:8:e115::ccc/64              | Add IPv6 address to interface.                           |
 | (config-if)# ipv6 address 2001:41d0:8:e115::/64 eui-64          | Add IPv6 address based on MAC to interface.              |
 | (config-if)# ip address dhcp                                    | Get IPv4 address via dhcp.                               |
 | (config-if)# ipv6 address autoconfig [default]                  | Get IPv6 address [and default route] via autoconfig      |
-| (config-if)# ip dhcp client client-id asccii SW2                | Set hostname transmitted as dhcp client to SW2           |
+| (config-if)# ip dhcp client client-id ascii SW2                 | Set hostname transmitted as dhcp client to SW2           |
 | (config)# interface g1/0 - 2                                    | Configure both interfaces at once.                       |
 | (config-if)# [no] shutdown                                      | En- or Disable interface. Often shutdown is the default. |
 | (config)# ip default-gateway 10.23.42.1                         | Set 10.23.42.1 as the default gateway                    |
@@ -193,7 +193,6 @@ I'm not supposed to. Always disable DTP / trunk auto negotiation.
 | (config)# interface vlan 23                   | enter interface config mode                |
 | (config-if)# ip address 1.2.3.4 255.255.255.0 | set device ip in vlan 23                   |
 | (config-if)# no shutdown                      | virtual interfaces are disabled by default |
-| (config-if)# int g                            |                                            |
 | (config)# no vlan 23                          | delete vlan 23                             |
 
 ### Router (on a Stick) Vlan Config
@@ -214,7 +213,7 @@ I'm not supposed to. Always disable DTP / trunk auto negotiation.
 | # show interfaces g1/1 switchport                      | Verify mode and vlan of g1/1            |
 | # show interfaces g1/1 trunk                           | Show trunk settings and state           |
 | # show run interface vlan 1                            | Quick way to search the running config. |
-| # show interface status                                | Show trunk mode / access vlan           |
+| # show interfaces status                               | Show trunk mode / access vlan           |
 | # show dtp interface g1/1                              | Show current DTP mode for g1/1          |
 
 
@@ -232,8 +231,8 @@ I'm not supposed to. Always disable DTP / trunk auto negotiation.
 
 | Command           | Description                             |
 |:------------------|:----------------------------------------|
-| show vtp status   | show vtp domain, pruning, mode and more |
-| show vtp password |                                         |
+| # show vtp status   | show vtp domain, pruning, mode and more |
+| # show vtp password |                                         |
 
 
 ## STP
@@ -244,7 +243,7 @@ Spaning Tree Protocol (802.1D) blocks ports with redundant links to prevent laye
 | (config)# spanning-tree vlan 1 root {primary, secondary} | Make this device the primary/secondary root bridge.  |
 | (config)# spanning-tree portfast bpduguard default       | Enable bpdu guard for all portfast enable interfaces |
 | (config)# spanning-tree portfast default                 | Enable portfast for all non-trunk interfaces         |
-| (config-if)# spanning-tree bpduguard enable              | Enable gpduguard on this interface                   |
+| (config-if)# spanning-tree bpduguard enable              | Enable bpduguard on this interface                   |
 | (config-if)# spanning-tree portfast                      | Enable portfast on this interface                    |
 | (config-if)# spanning-tree guard root                    | Enable root guard on this interface                  |
 
@@ -299,7 +298,7 @@ Layer 1 link speed is dictated by a CSU/DSU, in a lab without an external CSU/DS
 |:----------------------------------------|:------------------------------------------------|
 | (config)# interface serial 1/0          | Configure interface serial 1/0                  |
 | (config-if)# clock rate 128000          | Set clock rate on DCE router side to 128 kbps   |
-| (config)# show controllers serial 1/0   | Verify clock rate for serial interface 1/0      |
+| # show controllers serial 1/0           | Verify clock rate for serial interface 1/0      |
 
 
 ## ACLs
@@ -317,14 +316,14 @@ Default mask for standard ACLs: 0.0.0.0
 | (config)# ip[v6] access-list resequence local_only 5 10    | Renumber ACL Rules, put first on #5, increment by 10.     |
 | (config)# ip access-list {standard, extended} 23           | Create ACL and/or enter config mode for ACL #23           |
 | (config)# ip access-list {standard, extended} local_only   | Create ACL and/or enter config mode for ACL 'local_only'  |
-| (config-std-nac1)# permit 10.20.30.0 0.0.0.255             | Append rule to standard ACL 'local_only'                  |
-| (config-std-nac1)# 5 permit 10.20.30.0 0.0.0.255           | Append rule to ACL at sequence number 5.                  |
-| (config-std-nac1)# no &lt;sequence#>                          | Remove rule with sequence# from ACL                       |
-| (config-ext-nac1)# deny tcp any any                        |                                                           |
-| (config-ext-nac1)# permit udp host 10.20.30.40 any lt 1024 |                                                           |
-| (config-ext-nac1)# permit udp host 10.20.30.40 any eq dns  |                                                           |
-| (config-ext-nac1)# deny udp host 10.20.30.40 any           |                                                           |
-| (config-ext-nac1)# permit ip any any                       |                                                           |
+| (config-std-nacl)# permit 10.20.30.0 0.0.0.255             | Append rule to standard ACL 'local_only'                  |
+| (config-std-nacl)# 5 permit 10.20.30.0 0.0.0.255           | Append rule to ACL at sequence number 5.                  |
+| (config-std-nacl)# no &lt;sequence#>                          | Remove rule with sequence# from ACL                       |
+| (config-ext-nacl)# deny tcp any any                        |                                                           |
+| (config-ext-nacl)# permit udp host 10.20.30.40 any lt 1024 |                                                           |
+| (config-ext-nacl)# permit udp host 10.20.30.40 any eq dns  |                                                           |
+| (config-ext-nacl)# deny udp host 10.20.30.40 any           |                                                           |
+| (config-ext-nacl)# permit ip any any                       |                                                           |
 
 ### Interface ACLs
 
@@ -412,7 +411,7 @@ Note: NAT Table entries are kept for 24h after the last use by default.
 | Command                                                  | Description                                            |
 |:---------------------------------------------------------|:-------------------------------------------------------|
 | (config)# ip dhcp excluded-address 10.30.4.1 10.30.4.100 | Don't distribute these IPs in leases                   |
-| (config)# ip dhcp pool PCs                               | Creat and/or enter dhcp config for pool 'PCs'          |
+| (config)# ip dhcp pool PCs                               | Create and/or enter dhcp config for pool 'PCs'         |
 | (dhcp-config)# network 10.30.4.0 /24                     | define pool addresses                                  |
 | (dhcp-config)# default-router 10.2.1.1                   | define default-gateway to be distributed in the leases |
 | (dhcp-config)# dns-server 10.30.4.1                      |                                                        |
@@ -472,7 +471,7 @@ Note: NAT Table entries are kept for 24h after the last use by default.
 | Command                               | Description                                                                  |
 |:--------------------------------------|:-----------------------------------------------------------------------------|
 | (config)# hostname R1                 | Set hostname to R1                                                           |
-| (config)# enable password &lt;password>  | Set enable passwort.                                                         |
+| (config)# enable password &lt;password>  | Set enable password.                                                         |
 | (config)# enable secret &lt;password>    | Same, but with hashing.                                                      |
 | (config)# service password-encryption | Very weak encryption of passwords passwords.                                 |
 | # copy flash0: tftp:                  | Copy something from flash to tftp. Wizard asks for details. Works both ways. |
@@ -487,7 +486,7 @@ Note: NAT Table entries are kept for 24h after the last use by default.
 
 ### Firmware Management
 
-Note: flash: is the main flash memory on all iOS devices
+Note: flash: is the main flash memory on all IOS devices
 
 | Command                                               | Description                                                   |
 |:------------------------------------------------------|:--------------------------------------------------------------|
@@ -495,9 +494,8 @@ Note: flash: is the main flash memory on all iOS devices
 | (config)# boot system tftp://10.20.30.40/filename.bin | Boot filename.bin from tftp.                                  |
 | (config)# boot system rom                             | Boot ROM monitor as a backup.                                 |
 | (config)# config-register 0x2342                      | Set the 16bit Configuration Register value used after reboot. |
-|                                                       |                                                               |
 | # show file systems                                   | Lists available file systems                                  |
-| # show flash0:                                        | List fs content and free space.                               |
+| # show flash:                                         | List fs content and free space.                               |
 
 ### License Management
 
@@ -523,13 +521,13 @@ Note: flash: is the main flash memory on all iOS devices
 
 | Command                          | Description                                                            |
 |:---------------------------------|:-----------------------------------------------------------------------|
-| > confreq                        | Show the configuration register in rom monitor                         |
-| > confreq 0x2142                 | Set the configuration register in rom monitor to not load startup-conf |
+| > confreg                        | Show the configuration register in rom monitor                         |
+| > confreg 0x2142                 | Set the configuration register in rom monitor to not load startup-conf |
 | > reset                          | Reboot in rom monitor                                                  |
 | # copy startup running           |                                                                        |
 | (config)# enable secret foobar   | Overwrite forgotten password                                           |
 | (config)# config-register 0x2102 | Do load startup-config after boot again.                               |
-| # save                           |                                                                        |
+| # write                          |                                                                        |
 
 
 ### Telnet / Console
@@ -578,7 +576,7 @@ Note: flash: is the main flash memory on all iOS devices
 |:-------------------------------------|:--------------------------------------|
 | # show control-plane host open-ports | Show open ports                       |
 | (config)# no ip http server          | Stop the http server (but not https). |
-| (config)# no cdp enable              | Stop CDP                              |
+| (config)# no cdp run                 | Stop CDP                              |
 | # auto secure                        |                                       |
 
 ### Radius
@@ -614,11 +612,10 @@ Note: flash: is the main flash memory on all iOS devices
 
 | Command                      | Description                                    |
 |:-----------------------------|:-----------------------------------------------|
-| # logging 10.20.30.40        | Log to this syslog server (name or ip)         |
-| # logging trap informational | Only log messages with min. informational sev. |
-
-service sequence-number | Needed for seqence number in syslog messages
-service time stamps log [datetime, log] | Needed for date and time in syslog messages
+| (config)# logging 10.20.30.40        | Log to this syslog server (name or ip)         |
+| (config)# logging trap informational | Only log messages with min. informational sev. |
+| (config)# service sequence-numbers   | Needed for seqence number in syslog messages   |
+| (config)# service timestamps log [datetime, log] | Needed for date and time in syslog messages |
 
 | Command        | Description                         |
 |:---------------|:------------------------------------|
@@ -646,8 +643,8 @@ service time stamps log [datetime, log] | Needed for date and time in syslog mes
 
 | Command                        | Description                                                     |
 |:-------------------------------|:----------------------------------------------------------------|
-| # [no] cdp run                 | Enables cdp globaly and on all interfaces (default)             |
-| # (config-if)# [no] cdp enable | Enable cdp on an interface                                      |
+| (config)# [no] cdp run         | Enables cdp globaly and on all interfaces (default)             |
+| (config-if)# [no] cdp enable   | Enable cdp on an interface                                      |
 | # show cdp neighbors [detail]  | List connected cisco devices (name, local/remote port, [ip] ..) |
 | # show cdp entry *             |                                                                 |
 
@@ -655,7 +652,7 @@ service time stamps log [datetime, log] | Needed for date and time in syslog mes
 
 | Command                         | Description                                  |
 |:--------------------------------|:---------------------------------------------|
-| # [no] lldp run                 | Enables lldp globaly and on all interfaces   |
+| (config)# [no] lldp run         | Enables lldp globaly and on all interfaces   |
 | (config-if)# [no] lldp transmit | Enable lldp packet transmission on interface |
 | (config-if)# [no] lddp receive  | Enable lldp packet reception on interace     |
 
@@ -709,7 +706,7 @@ Note: When routy1 connects to routy2 it looks in it's local user database for a 
 
 | Command            | Description   |
 |:-------------------|:--------------|
-| show ppp multilink | Physical IFs, |
+| # show ppp multilink | Physical IFs, |
 
 ### PPPoE
 
@@ -767,7 +764,7 @@ ip mtu
 | (config-router)# passive-interface g1/1                             | Don't send RIP updates out this interface               |
 | (config-router)# passive-interface default                          | Don't send RIP updates on any if by default             |
 | (config-router)# no passive-interface g1/2                          | Overwrite passive-interface default                     |
-| (config-router)# default information originate                      | Advertise the default route.                            |
+| (config-router)# default-information originate                      | Advertise the default route.                            |
 | (config-if)# no ip rip advertise 123                                |                                                         |
 
 ### Troubleshooting RIPv2
@@ -824,9 +821,9 @@ The default reference bandwith is 100Mbps. Everything faster has a cost of 1.
 | (config)# router ospf 1                                        | 1 is the pid, not the area.                     |
 | (config-router)# router-id 1.2.3.4                             | Defaults to highest IPv4 on lo, then other ifs. |
 | (config-router)# network 10.20.30.0 0.0.0.255 area 0           | enable interfaces for ospf with matching IPs    |
-| (config-router)# (no) passive-interface g1/1                   | Stop in- and egress ospf hello packets.         |
+| (config-router)# [no] passive-interface g1/1                   | Stop in- and egress ospf hello packets.         |
 | (config-router)# passive-interface default                     | Mark all ifs passive by default.                |
-| (config-router)# default-information originate (always)        | Advertise default routes into a normal area     |
+| (config-router)# default-information originate [always]        | Advertise default routes into a normal area     |
 | (config-router)# auto-cost reference-bandwidth &lt;refbw in Mb/s> | Change reference bandwidth speed                |
 | (config-if)# ip ospf cost 23                                   | Overwrite interface cost to 23                  |
 | (config-if)# bandwidth &lt;bw in kb/s>                            | Change interface bandwidth                      |
@@ -856,14 +853,14 @@ The networks command does not exist, non mentioned commands are the same.
 | Command                            | Description                                                  |
 |:-----------------------------------|:-------------------------------------------------------------|
 | # show run &#124; sect ospf        |                                                              |
-| # show ip(v6) protocols            | Other protocols with lower AD?                               |
-| # show ipv6 ospf                   | reference bandwidth, router id, networks, interface per area |
-| # show ip(v6) ospf neighbor        | neighbor IDs, IPs and via interface.                         |
-| # show ip(v6) ospf neighbor detail | dr, bdr, timers, ...                                         |
-| # show interface brief             | admin down? link?                                            |
-| # show ip(v6) ospf interface brief | ospf enabled interfaces                                      |
-| # show ip(v6) ospf interface g1/1  | ospf related infos for g1/1, passive?                        |
-| # show ip(v6) route (ospf)         | ospf routes are marked O, show route ad and cost             |
+| # show ip[v6] protocols            | Other protocols with lower AD?                               |
+| # show ip[v6] ospf                 | reference bandwidth, router id, networks, interface per area |
+| # show ip[v6] ospf neighbor        | neighbor IDs, IPs and via interface.                         |
+| # show ip[v6] ospf neighbor detail | dr, bdr, timers, ...                                         |
+| # show ip[v6] interface brief      | admin down? link?                                            |
+| # show ip[v6] ospf interface brief | ospf enabled interfaces                                      |
+| # show ip[v6] ospf interface g1/1  | ospf related infos for g1/1, passive?                        |
+| # show ip[v6] route [ospf]         | ospf routes are marked O, show route ad and cost             |
 
 
 ## BGP
@@ -891,7 +888,7 @@ Here I'll collect crazy default behaviors and how to fix them, I guess..
 
 | Command                       | Description                                      |
 |:------------------------------|:-------------------------------------------------|
-| (config)# no ip domain-lookup | Don't try to telnet unknown single word commands |
+| (config)# no ip domain lookup | Don't try to telnet unknown single word commands |
 
 ### Modes
 
