@@ -223,8 +223,8 @@ I'm not supposed to. Always disable DTP / trunk auto negotiation.
 | Command                                          | Description |
 |:-------------------------------------------------|:------------|
 | (config)# vtp mode [server, client, transparent] |             |
-| (config)# vtp domain <domain-name>               |             |
-| (config)# vtp password <password>                |             |
+| (config)# vtp domain &lt;domain-name>               |             |
+| (config)# vtp password &lt;password>                |             |
 | (config)# vtp pruning                            |             |
 
 
@@ -319,7 +319,7 @@ Default mask for standard ACLs: 0.0.0.0
 | (config)# ip access-list {standard, extended} local_only   | Create ACL and/or enter config mode for ACL 'local_only'  |
 | (config-std-nac1)# permit 10.20.30.0 0.0.0.255             | Append rule to standard ACL 'local_only'                  |
 | (config-std-nac1)# 5 permit 10.20.30.0 0.0.0.255           | Append rule to ACL at sequence number 5.                  |
-| (config-std-nac1)# no <sequence#>                          | Remove rule with sequence# from ACL                       |
+| (config-std-nac1)# no &lt;sequence#>                          | Remove rule with sequence# from ACL                       |
 | (config-ext-nac1)# deny tcp any any                        |                                                           |
 | (config-ext-nac1)# permit udp host 10.20.30.40 any lt 1024 |                                                           |
 | (config-ext-nac1)# permit udp host 10.20.30.40 any eq dns  |                                                           |
@@ -417,7 +417,7 @@ Note: NAT Table entries are kept for 24h after the last use by default.
 | (dhcp-config)# default-router 10.2.1.1                   | define default-gateway to be distributed in the leases |
 | (dhcp-config)# dns-server 10.30.4.1                      |                                                        |
 | (dhcp-config)# domain-name acme.com                      |                                                        |
-| (dhcp-config)# lease <days> <hours> <mins>               | lease validity time                                    |
+| (dhcp-config)# lease &lt;days> &lt;hours> &lt;mins>               | lease validity time                                    |
 | (config)# int g1/1                                       | Enter interface config mode on client facing interface |
 | (config-if)# ip helper-address 192.168.1.1               | Relay DHCP Requests to this host                       |
 
@@ -438,8 +438,8 @@ Note: NAT Table entries are kept for 24h after the last use by default.
 
 | Command                                             | Description                                                      |
 |:----------------------------------------------------|:-----------------------------------------------------------------|
-| (config-if)# standby [group-number] ip <ip>         | Join HSRP Group                                                  |
-| (config-if)# standby [group-number] priority <prio> | (optional) Set prio of this router.                              |
+| (config-if)# standby [group-number] ip &lt;ip>         | Join HSRP Group                                                  |
+| (config-if)# standby [group-number] priority &lt;prio> | (optional) Set prio of this router.                              |
 | (config-if)# standby [group-number] preempt         | (optional) Preempt other routers when this router becomes active |
 | (config-if)# standby {1,2}                          | (optional) Set HSRP Version                                      |
 
@@ -472,15 +472,15 @@ Note: NAT Table entries are kept for 24h after the last use by default.
 | Command                               | Description                                                                  |
 |:--------------------------------------|:-----------------------------------------------------------------------------|
 | (config)# hostname R1                 | Set hostname to R1                                                           |
-| (config)# enable password <password>  | Set enable passwort.                                                         |
-| (config)# enable secret <password>    | Same, but with hashing.                                                      |
+| (config)# enable password &lt;password>  | Set enable passwort.                                                         |
+| (config)# enable secret &lt;password>    | Same, but with hashing.                                                      |
 | (config)# service password-encryption | Very weak encryption of passwords passwords.                                 |
 | # copy flash0: tftp:                  | Copy something from flash to tftp. Wizard asks for details. Works both ways. |
 | # write                               | # copy running-config startup-config                                         |
 | # write erase                         | # erase startup-config                                                       |
 | # reload                              | restart the device and load the startup-config                               |
 | # copy running-config tftp:           | copy running-config to an tftp server. (interactive)                         |
-| # copy <any> running-config           | Merge source config into the running config.                                 |
+| # copy &lt;any> running-config           | Merge source config into the running config.                                 |
 | # setup                               | initial configuration dialog                                                 |
 | # show version                        | ios, bootloader and hardware infos, uptime, configuration register           |
 | # show {running,startup}-config       |                                                                              |
@@ -505,13 +505,13 @@ Note: flash: is the main flash memory on all iOS devices
 |:------------------------------------------------------------------------------|:---------------------------------------------------------|
 | # license save flash:licenses.lic                                             | Save a copy of all licenses.                             |
 | # license install flash0:license.xml                                          | Install a license.                                       |
-| (config)# license boot module <name> technology-package <pkg-name>            | active a evaluation right-to-use license.                |
+| (config)# license boot module &lt;name> technology-package &lt;pkg-name>            | active a evaluation right-to-use license.                |
 | # reload                                                                      | Reboot to activate the package and right to use license. |
 |                                                                               |                                                          |
-| (config)# license boot module <name> technology-package <pkg-name> disable    | deactive a technology-package.                           |
+| (config)# license boot module &lt;name> technology-package &lt;pkg-name> disable    | deactive a technology-package.                           |
 | # reload                                                                      | Reboot without that technology-package.                  |
-| # license clear <pkg-name>                                                    | Remove license from the license storage.                 |
-| (config)# no license boot module <name> technology-package <pkg-name> disable | Remove the no longer needed line from the config.        |
+| # license clear &lt;pkg-name>                                                    | Remove license from the license storage.                 |
+| (config)# no license boot module &lt;name> technology-package &lt;pkg-name> disable | Remove the no longer needed line from the config.        |
 | # reload                                                                      | I don't even know why this is needed. Fu cisco.          |
 |                                                                               |                                                          |
 | # show license                                                                | active licenses                                          |
@@ -541,7 +541,7 @@ Note: flash: is the main flash memory on all iOS devices
 | (config)# line vty 0 4                         | Enter config mode for vty 0 to 4 (up to 15 allowed).        |
 | (config)# line console 0                       | Enter config mode for the console port                      |
 | (config-line)# login                           | Require login on telnet/console connection.                 |
-| (config-line)# password <password>             | Enable Telnet and set vty login password.                   |
+| (config-line)# password &lt;password>             | Enable Telnet and set vty login password.                   |
 | (config-line)# access-class 10 in              | Set ACL to limit inbound IPs allowed to access vty          |
 | (config-line)# access-class 42 in              | Overwrite the used ACL, only one ACL per vty + direction!   |
 | (config-line)# exec-timeout 10                 | Autologout after 10 Minutes                                 |
@@ -585,29 +585,29 @@ Note: flash: is the main flash memory on all iOS devices
 
 | Command                                                         | Description                          |
 |:----------------------------------------------------------------|:-------------------------------------|
-| (config)# username <user> password <pass>                       | Local backup user.                   |
+| (config)# username &lt;user> password &lt;pass>                       | Local backup user.                   |
 | (config)# aaa new-model                                         | Enable aaa services.                 |
-| (config)# radius server <radius-conf-name>                      | Add and define Radius conf.          |
-| (config-radius-server)# address ipv4 <host> [auth-port <port> ] | Use this hostname/ip of server.      |
-| (config-radius-server)# key <key>                               | Radius PSK                           |
-| (config)# aaa group server radius <group-name>                  | Create authentication group.         |
-| (config-sg-radius)# server name <radius-conf-name>              | Using the radius config.             |
-| (config)# aaa authentication login group <group-name> local     | Allow that group and local users in. |
+| (config)# radius server &lt;radius-conf-name>                      | Add and define Radius conf.          |
+| (config-radius-server)# address ipv4 &lt;host> [auth-port &lt;port> ] | Use this hostname/ip of server.      |
+| (config-radius-server)# key &lt;key>                               | Radius PSK                           |
+| (config)# aaa group server radius &lt;group-name>                  | Create authentication group.         |
+| (config-sg-radius)# server name &lt;radius-conf-name>              | Using the radius config.             |
+| (config)# aaa authentication login group &lt;group-name> local     | Allow that group and local users in. |
 
 
 ### TACACS+
 
 | Command                                                     | Description                          |
 |:------------------------------------------------------------|:-------------------------------------|
-| (config)# username <user> password <pass>                   | Local backup user.                   |
+| (config)# username &lt;user> password &lt;pass>                   | Local backup user.                   |
 | (config)# aaa new-model                                     | Enable aaa services.                 |
-| (config)# tacacs server <tacacs-conf-name>                  | Add and define TACACS conf.          |
-| (config-server-tacacs)# address ipv4 <host>                 |                                      |
-| (config-server-tacacs)# [port <port>]                       |                                      |
-| (config-server-tacacs)# key <key>                           |                                      |
-| (config)# aaa group server tacacs+ <group-name>             | Multiple possible.                   |
-| (config-sg-tacacs+)# server name <tacacs-conf-name>         |                                      |
-| (config)# aaa authentication login group <group-name> local | Allow that group and local users in. |
+| (config)# tacacs server &lt;tacacs-conf-name>                  | Add and define TACACS conf.          |
+| (config-server-tacacs)# address ipv4 &lt;host>                 |                                      |
+| (config-server-tacacs)# [port &lt;port>]                       |                                      |
+| (config-server-tacacs)# key &lt;key>                           |                                      |
+| (config)# aaa group server tacacs+ &lt;group-name>             | Multiple possible.                   |
+| (config-sg-tacacs+)# server name &lt;tacacs-conf-name>         |                                      |
+| (config)# aaa authentication login group &lt;group-name> local | Allow that group and local users in. |
 
 
 ### Syslog
@@ -631,8 +631,8 @@ service time stamps log [datetime, log] | Needed for date and time in syslog mes
 |:--------------------------------------------------|:-----------------------------|
 | (config)# snmp-server contact admin@example.com   | Contact email                |
 | (config)# snmp-server location RZ-Hamburg         | Where is the device          |
-| (config)# snmp-server community <string> [ro, rw] | Add community                |
-| (config)# snmp-server host 10.20.30.40 <string>   | SNMP notifications recipient |
+| (config)# snmp-server community &lt;string> [ro, rw] | Add community                |
+| (config)# snmp-server host 10.20.30.40 &lt;string>   | SNMP notifications recipient |
 
 | Command               | Description |
 |:----------------------|:------------|
@@ -760,9 +760,9 @@ ip mtu
 |:--------------------------------------------------------------------|:--------------------------------------------------------|
 | (config)# router rip                                                | Enable RIP and enter it's config mode                   |
 | (config-router)# version 2                                          | Set RIPv2, which is Classless                           |
-| (config-router)# network 192.168.0.0                                | Advertise connected networks which are within <net>.    |
+| (config-router)# network 192.168.0.0                                | Advertise connected networks which are within &lt;net>.    |
 | (config-router)# network 0.0.0.0                                    | Advertise all connected networks.                       |
-| (config-router)# timers basic <update> <invalid> <holddown> <flush> |                                                         |
+| (config-router)# timers basic &lt;update> &lt;invalid> &lt;holddown> &lt;flush> |                                                         |
 | (config-router)# no auto-summary                                    | Don't summarize a smaller subnet route in a bigger one. |
 | (config-router)# passive-interface g1/1                             | Don't send RIP updates out this interface               |
 | (config-router)# passive-interface default                          | Don't send RIP updates on any if by default             |
@@ -788,15 +788,15 @@ Note: The network command enables any interface with an ip in that net to send a
 |:------------------------------------------------|:-----------------------------------------------------|
 | # show run &#124 section eigrp                  | Show EIGRP settings.                                 |
 | # show interfaces g1/1                          | Show configured/default bandwith and delay.          |
-| (config-if)# bandwidth <kbps>                   | Overwrite bandwidth used for eigrp metric.           |
-| (config-if)# delay <micros>                     | Overwrite deplay used for eigrp metric.              |
+| (config-if)# bandwidth &lt;kbps>                   | Overwrite bandwidth used for eigrp metric.           |
+| (config-if)# delay &lt;micros>                     | Overwrite deplay used for eigrp metric.              |
 | (config)# router eigrp 23                       | Add and conf EIGRP AS#23                             |
 | (config-router)# network 10.20.30.0 0.0.0.255   | Announce routes to 10.20.30.0/24                     |
 | (config-router)# no shutdown                    | On some iOS versions it's off by default.            |
-| (config-router)# [no] eigrp router-id <id-ip>   | Defaults to highest loopback ip                      |
+| (config-router)# [no] eigrp router-id &lt;id-ip>   | Defaults to highest loopback ip                      |
 | (config-router)# [no] passive-interface g1/2    | Disable EIGRP here. Ignore incoming pkgs.            |
 | (config-router)# [no] passive-interface default | Disable EIGRP on all ifs by default.                 |
-| (config-router)# maximum-paths <nr>             | Default 4, must match, number of loadbalanced paths. |
+| (config-router)# maximum-paths &lt;nr>             | Default 4, must match, number of loadbalanced paths. |
 | (config-router)# variance 4                     | Default 1, Max 4:1 variance for unequal lb.          |
 | (config-router)# no auto-summary                | Don't summarize a smaller subnet route in a big one. |
 | # show ip[v6] eigrp neighbors                   | Neighbor addr, if, hold time, uptime, queued pkgs    |
@@ -827,9 +827,9 @@ The default reference bandwith is 100Mbps. Everything faster has a cost of 1.
 | (config-router)# (no) passive-interface g1/1                   | Stop in- and egress ospf hello packets.         |
 | (config-router)# passive-interface default                     | Mark all ifs passive by default.                |
 | (config-router)# default-information originate (always)        | Advertise default routes into a normal area     |
-| (config-router)# auto-cost reference-bandwidth <refbw in Mb/s> | Change reference bandwidth speed                |
+| (config-router)# auto-cost reference-bandwidth &lt;refbw in Mb/s> | Change reference bandwidth speed                |
 | (config-if)# ip ospf cost 23                                   | Overwrite interface cost to 23                  |
-| (config-if)# bandwidth <bw in kb/s>                            | Change interface bandwidth                      |
+| (config-if)# bandwidth &lt;bw in kb/s>                            | Change interface bandwidth                      |
 
 ### Router Types
 | Term                                     | Definition                                                                       |
@@ -844,9 +844,9 @@ The default reference bandwith is 100Mbps. Everything faster has a cost of 1.
 | Command                                     | Description                                        |
 |:--------------------------------------------|:---------------------------------------------------|
 | (config)# ipv6 unicast-routing              |                                                    |
-| (config)# ipv6 router ospf <pid>            |                                                    |
-| (config-router)# router-id <ipv4>           | Required if we don't have any v4 addrs configured. |
-| (config-if)# ipv6 ospf <pid> area <area id> | Required for OSPFv3.                               |
+| (config)# ipv6 router ospf &lt;pid>            |                                                    |
+| (config-router)# router-id &lt;ipv4>           | Required if we don't have any v4 addrs configured. |
+| (config-if)# ipv6 ospf &lt;pid> area &lt;area id> | Required for OSPFv3.                               |
 
 The networks command does not exist, non mentioned commands are the same.
 
@@ -872,9 +872,9 @@ Note: In other routing protocols the network statement is used to determin the i
 
 | Command                                          | Description                           |
 |:-------------------------------------------------|:--------------------------------------|
-| (config)# router bgp <local-as>                  | Create routing process.               |
-| (config)# neighbor <peer-ip> remote-as <peer-as> | BGP does not auto discover neighbors. |
-| (config)# network <net> [mask <mask>]            | Advertise this network.               |
+| (config)# router bgp &lt;local-as>                  | Create routing process.               |
+| (config)# neighbor &lt;peer-ip> remote-as &lt;peer-as> | BGP does not auto discover neighbors. |
+| (config)# network &lt;net> [mask &lt;mask>]            | Advertise this network.               |
 
 | Command                           | Description                                        |
 |:----------------------------------|:---------------------------------------------------|
